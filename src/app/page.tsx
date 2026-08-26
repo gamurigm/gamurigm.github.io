@@ -72,6 +72,7 @@ export default function Home() {
             <li><a href="#home" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#projects" onClick={closeMenu}>Proyectos</a></li>
+            <li><a href="#contact" onClick={closeMenu}>Contacto</a></li>
           </ul>
           <div className="hamburger" onClick={toggleMenu}>
             <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
@@ -264,7 +265,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer>
+      <footer id="contact">
         <div className="container footer-container">
           <div className="footer-logo">GAMUR<span>.</span></div>
           <div className="footer-contact">
