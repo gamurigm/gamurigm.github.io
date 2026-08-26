@@ -567,7 +567,7 @@ img {
    FOOTER
    ========================================= */
 footer {
-  padding: 0.4rem 0;
+  padding: 1rem 0;
   border-top: 1px solid var(--card-border);
   line-height: 1.15;
 }
@@ -576,11 +576,13 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-align: center;
 }
 
 .footer-logo {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 800;
 }
 
@@ -592,12 +594,12 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.35rem 0.75rem;
+  gap: 0.6rem 1.25rem;
 }
 
 .footer-contact a {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-decoration: none;
 }
 
@@ -662,11 +664,6 @@ footer {
 
   .projects-grid {
     grid-template-columns: 1fr;
-  }
-
-  .footer-container {
-    flex-direction: column;
-    gap: 0.35rem;
   }
 
   .footer-contact {
