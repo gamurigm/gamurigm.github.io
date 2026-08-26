@@ -72,7 +72,6 @@ export default function Home() {
             <li><a href="#home" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#projects" onClick={closeMenu}>Proyectos</a></li>
-            <li><a href="#contact" onClick={closeMenu}>Contacto</a></li>
           </ul>
           <div className="hamburger" onClick={toggleMenu}>
             <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
@@ -86,18 +85,16 @@ export default function Home() {
           <div className="hero-content">
             <p className="subtitle">Hola, soy</p>
             <h1 className="title">Gamur</h1>
-            <h2 className="role">Ingeniero de Software <span>& Quant Developer</span></h2>
+            <h2 className="role">Ingeniero de Software <span>& Full Stack Developer</span></h2>
             <p className="description">
-              Especializado en la creación de motores de alto rendimiento, análisis de datos, inteligecia artificial y arquitecturas complejas de aplicaciones modernas y backend.
+              Desarrollo soluciones web y backend, con interés en inteligencia artificial, análisis de datos, ciberseguridad y arquitecturas de aplicaciones modernas.
             </p>
             <div className="hero-btns">
               <a href="#projects" className="btn btn-primary">Ver Mis 7 Proyectos <i className="fas fa-arrow-right"></i></a>
-              <a href="#contact" className="btn btn-outline">Contáctame</a>
             </div>
             <div className="social-links">
               <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fab fa-github"></i></a>
-              <a href="#" title="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
-              <a href="#" title="Twitter"><i className="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
             </div>
           </div>
           <div className="hero-visual">
@@ -107,7 +104,7 @@ export default function Home() {
             </div>
             <div className="floating-element el-2">
               <i className="fas fa-chart-line"></i>
-              <span>Data & Quant</span>
+              <span>Data & AI</span>
             </div>
             <div className="floating-element el-3">
               <i className="fas fa-mobile-alt"></i>
@@ -263,17 +260,6 @@ export default function Home() {
             </article>
 
           </div>
-        </div>
-      </section>
-
-      {/* CTA / Contact */}
-      <section id="contact" className="contact">
-        <div className="container contact-container box-glass">
-          <div className="contact-content">
-            <h2>¿Listo para innovar?</h2>
-            <p>Si buscas soluciones escalables en trading algorítmico, desarrollo backend o inteligencia artificial, conversemos.</p>
-          </div>
-          <a href="mailto:example@gmail.com" className="btn btn-primary btn-large">Hablemos <i className="fas fa-paper-plane"></i></a>
         </div>
       </section>
 
