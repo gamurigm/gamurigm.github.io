@@ -177,12 +177,12 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>SOC</span>
-                  <span>Wazuh</span>
-                  <span>Docker</span>
+                  <span>Suricata &amp; Zeek</span>
+                  <span>NVIDIA NIM</span>
+                  <span>PostgreSQL</span>
                 </div>
                 <h3><a href="https://github.com/gamurigm/pySentinel_SOC5" target="_blank" rel="noopener noreferrer">pySentinel SOC5</a></h3>
-                <p>Detección de amenazas con Wazuh, Suricata y Velociraptor para monitoreo en tiempo real.</p>
+                <p>Plataforma SOC/IDS con respuesta automatizada, telemetría multi-herramienta e IA para detección y análisis de amenazas en tiempo real.</p>
               </div>
             </article>
 
