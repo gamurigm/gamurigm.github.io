@@ -89,7 +89,7 @@ export default function Home() {
       {/* Hero Section */}
       <section id="home" className="hero">
         <div className="container hero-container">
-          <div className="hero-content">
+          <div className="hero-content" id="about">
             <p className="subtitle">Hola, soy</p>
             <h1 className="title">Gabriel Murillo</h1>
             <h2 className="role">Ingeniero de Software <span>& Full Stack Developer</span></h2>
@@ -311,6 +311,7 @@ export default function Home() {
       {/* Footer */}
       <footer id="contact">
         <div className="container footer-container">
+          <div className="footer-logo">GAMUR<span>.</span></div>
           <div className="footer-contact">
             <a href="tel:+593984919443"><i className="fas fa-phone"></i> 0984919443</a>
             <a href="mailto:gamurigm@gmail.com"><i className="fas fa-envelope"></i> gamurigm@gmail.com</a>
