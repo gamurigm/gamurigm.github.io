@@ -61,6 +61,12 @@ export default function Home() {
     window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
   };
 
+  const scrollToAbout = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       {/* Background Elements */}
@@ -76,7 +82,7 @@ export default function Home() {
           </Link>
           <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
             <li><a href="#home" onClick={closeMenu}>Inicio</a></li>
-            <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
+            <li><a href="#about" onClick={scrollToAbout}>Sobre Mí</a></li>
             <li><a href="#projects" onClick={closeMenu}>Proyectos</a></li>
             <li><a href="#contact" onClick={scrollToContact}>Contacto</a></li>
           </ul>
