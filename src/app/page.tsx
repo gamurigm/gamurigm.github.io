@@ -58,7 +58,10 @@ export default function Home() {
   const scrollToContact = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     closeMenu();
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    const contactEl = document.getElementById("contact");
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const scrollToAbout = (event: MouseEvent<HTMLAnchorElement>) => {
