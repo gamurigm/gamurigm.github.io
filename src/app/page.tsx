@@ -97,7 +97,7 @@ export default function Home() {
               Desarrollo soluciones web y backend, con interés en inteligencia artificial, análisis de datos, ciberseguridad y arquitecturas de aplicaciones modernas.
             </p>
             <div className="hero-btns">
-              <a href="#projects" className="btn btn-primary">Ver Mis 7 Proyectos <i className="fas fa-arrow-right"></i></a>
+              <a href="#projects" className="btn btn-primary">Ver Mis 9 Proyectos <i className="fas fa-arrow-right"></i></a>
             </div>
             <div className="social-links">
               <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fab fa-github"></i></a>
@@ -128,8 +128,8 @@ export default function Home() {
       <section id="projects" className="projects">
         <div className="container">
           <div className="section-header">
-            <h2>Mis Proyectos Key</h2>
-            <p>Una selección de mis 7 repositorios de GitHub más importantes: sistemas distribuidos, IA, ciberseguridad y plataformas cloud-native.</p>
+            <h2>Mis 9 Proyectos Key</h2>
+            <p>Una selección de mis 9 repositorios de GitHub más importantes: sistemas distribuidos, IA, ciberseguridad y plataformas cloud-native.</p>
           </div>
 
           <div className="projects-grid">
@@ -263,6 +263,44 @@ export default function Home() {
                 </div>
                 <h3><a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer">Inventrack PTES Report</a></h3>
                 <p>Informe técnico de pentesting sobre Inventrack en Kubernetes, con evidencias, análisis de vulnerabilidades y validación de controles de seguridad.</p>
+              </div>
+            </article>
+
+            {/* Project 8: Federated API Gateway */}
+            <article className="project-card">
+              <div className="project-image">
+                <Image src="/assets/federated-api-gateway.svg" alt="Federated API Gateway" fill style={{ objectFit: "cover" }} />
+                <div className="project-overlay">
+                  <a href="https://github.com/gamurigm/API_Server" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
+                </div>
+              </div>
+              <div className="project-info">
+                <div className="tags">
+                  <span>Next.js</span>
+                  <span>Supabase</span>
+                  <span>JWT RS256</span>
+                </div>
+                <h3><a href="https://github.com/gamurigm/API_Server" target="_blank" rel="noopener noreferrer">Federated API Gateway</a></h3>
+                <p>Gateway serverless para integrar APIs externas con autenticación RS256/JWKS y credenciales de upstream protegidas.</p>
+              </div>
+            </article>
+
+            {/* Project 9: DeepSeek R1 RAG */}
+            <article className="project-card">
+              <div className="project-image">
+                <Image src="/assets/deepseek-r1-rag.svg" alt="DeepSeek R1 RAG" fill style={{ objectFit: "cover" }} />
+                <div className="project-overlay">
+                  <a href="https://github.com/gamurigm/deepSeek_r1_distill_RAG" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
+                </div>
+              </div>
+              <div className="project-info">
+                <div className="tags">
+                  <span>DeepSeek R1</span>
+                  <span>LangChain</span>
+                  <span>ChromaDB</span>
+                </div>
+                <h3><a href="https://github.com/gamurigm/deepSeek_r1_distill_RAG" target="_blank" rel="noopener noreferrer">DeepSeek R1 RAG</a></h3>
+                <p>Sistema multiagente de QA/RAG que transforma documentos PDF en una base de conocimiento consultable.</p>
               </div>
             </article>
 

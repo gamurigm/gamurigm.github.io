@@ -450,21 +450,9 @@ img {
   gap: 2rem;
 }
 
-/* Center the last card (7th) when it's alone on the last row */
-.project-card:nth-child(7) {
-  grid-column: 2 / 3;
-}
-
 @media (max-width: 1024px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .project-card:nth-child(7) {
-    grid-column: 1 / -1;
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
   }
 }
 
@@ -673,10 +661,6 @@ footer {
 
   .projects-grid {
     grid-template-columns: 1fr;
-  }
-
-  .project-card:nth-child(1) {
-    grid-column: span 1;
   }
 
   .footer-container {

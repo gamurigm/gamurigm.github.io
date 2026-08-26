@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Federated API Gateway</title>
+  <desc id="desc">Gateway serverless con autenticación RS256 y JWKS</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#172554"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1040" cy="120" r="250" fill="#818cf8" opacity=".09"/><circle cx="130" cy="610" r="260" fill="#38bdf8" opacity=".08"/>
+  <path d="M350 275h145M705 275h145M600 190v170" stroke="url(#accent)" stroke-linecap="round" stroke-width="18"/>
+  <rect x="255" y="205" width="120" height="140" rx="20" fill="#172554" stroke="#60a5fa" stroke-width="8"/><rect x="825" y="205" width="120" height="140" rx="20" fill="#172554" stroke="#a78bfa" stroke-width="8"/>
+  <rect x="505" y="145" width="190" height="260" rx="28" fill="#0f172a" stroke="url(#accent)" stroke-width="11"/>
+  <path d="M555 250h90M555 300h90M555 350h55" stroke="#dbeafe" stroke-linecap="round" stroke-width="14"/>
+  <text x="600" y="500" fill="#f8fafc" font-family="Arial, sans-serif" font-size="50" font-weight="700" text-anchor="middle">FEDERATED API GATEWAY</text>
+  <text x="600" y="555" fill="#93c5fd" font-family="Arial, sans-serif" font-size="28" text-anchor="middle">NEXT.JS · RS256/JWKS · SUPABASE</text>
+</svg>

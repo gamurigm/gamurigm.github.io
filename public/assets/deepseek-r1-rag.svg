@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">DeepSeek R1 RAG</title>
+  <desc id="desc">Sistema multiagente de RAG para documentos PDF</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18181b"/><stop offset="1" stop-color="#3b0764"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c084fc"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1030" cy="125" r="250" fill="#c084fc" opacity=".1"/><circle cx="145" cy="610" r="260" fill="#22d3ee" opacity=".08"/>
+  <rect x="318" y="185" width="170" height="225" rx="20" fill="#1f2937" stroke="#c084fc" stroke-width="9"/>
+  <path d="M360 255h85M360 300h85M360 345h55" stroke="#e9d5ff" stroke-linecap="round" stroke-width="15"/>
+  <path d="M515 300h130" stroke="url(#accent)" stroke-linecap="round" stroke-width="18"/>
+  <circle cx="730" cy="300" r="115" fill="#111827" stroke="url(#accent)" stroke-width="12"/>
+  <circle cx="690" cy="270" r="13" fill="#67e8f9"/><circle cx="770" cy="270" r="13" fill="#67e8f9"/><path d="M675 335q55 42 110 0" fill="none" stroke="#e9d5ff" stroke-linecap="round" stroke-width="13"/>
+  <text x="600" y="500" fill="#f8fafc" font-family="Arial, sans-serif" font-size="54" font-weight="700" text-anchor="middle">DEEPSEEK R1 RAG</text>
+  <text x="600" y="555" fill="#d8b4fe" font-family="Arial, sans-serif" font-size="28" text-anchor="middle">MULTI-AGENT · LANGCHAIN · CHROMADB</text>
+</svg>
