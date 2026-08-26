@@ -85,7 +85,7 @@ export default function Home() {
         <div className="container hero-container">
           <div className="hero-content">
             <p className="subtitle">Hola, soy</p>
-            <h1 className="title">Gamur</h1>
+            <h1 className="title">Gabriel Murillo</h1>
             <h2 className="role">Ingeniero de Software <span>& Full Stack Developer</span></h2>
             <p className="description">
               Desarrollo soluciones web y backend, con interés en inteligencia artificial, análisis de datos, ciberseguridad y arquitecturas de aplicaciones modernas.
