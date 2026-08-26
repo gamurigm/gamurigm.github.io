@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Inventrack PTES Report</title>
+  <desc id="desc">Informe de pentesting para un entorno Kubernetes</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#052e16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1000" cy="125" r="270" fill="#22c55e" opacity=".08"/>
+  <circle cx="150" cy="635" r="270" fill="#14b8a6" opacity=".1"/>
+  <rect x="435" y="128" width="330" height="300" rx="22" fill="#0f172a" stroke="url(#accent)" stroke-width="12"/>
+  <path d="M505 210h190M505 270h190M505 330h115" stroke="#bbf7d0" stroke-linecap="round" stroke-width="18"/>
+  <path d="M700 345l30 30 58-70" fill="none" stroke="#34d399" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+  <text x="600" y="505" fill="#f8fafc" font-family="Arial, sans-serif" font-size="52" font-weight="700" text-anchor="middle">INVENTRACK PTES REPORT</text>
+  <text x="600" y="560" fill="#86efac" font-family="Arial, sans-serif" font-size="28" text-anchor="middle">KUBERNETES · PENTESTING · SECURITY REPORT</text>
+</svg>

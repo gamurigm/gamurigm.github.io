@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Master Gateway Auth</title>
+  <desc id="desc">Autenticación y autorización centralizada para microservicios</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1010" cy="125" r="260" fill="#38bdf8" opacity=".08"/>
+  <circle cx="160" cy="620" r="260" fill="#6366f1" opacity=".1"/>
+  <path d="M600 145 790 225v125c0 125-81 210-190 245-109-35-190-120-190-245V225z" fill="none" stroke="url(#accent)" stroke-width="22"/>
+  <path d="M545 340l40 40 78-88" fill="none" stroke="#e0f2fe" stroke-linecap="round" stroke-linejoin="round" stroke-width="25"/>
+  <text x="600" y="500" fill="#f8fafc" font-family="Arial, sans-serif" font-size="52" font-weight="700" text-anchor="middle">MASTER GATEWAY AUTH</text>
+  <text x="600" y="555" fill="#7dd3fc" font-family="Arial, sans-serif" font-size="28" text-anchor="middle">RBAC · ZERO TRUST · MICROSERVICES</text>
+</svg>

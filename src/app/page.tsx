@@ -189,7 +189,7 @@ export default function Home() {
             {/* Project 4: Master Gateway Auth */}
             <article className="project-card">
               <div className="project-image">
-                <Image src="/assets/cyberpunk_music_player.png" alt="Master Gateway Auth" fill style={{ objectFit: "cover" }} />
+                <Image src="/assets/master-gateway-auth.svg" alt="Master Gateway Auth" fill style={{ objectFit: "cover" }} />
                 <div className="project-overlay">
                   <a href="https://github.com/gamurigm/master-gateway-auth" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
                 </div>
@@ -246,7 +246,7 @@ export default function Home() {
             {/* Project 7: Inventrack PTES Report */}
             <article className="project-card">
               <div className="project-image">
-                <Image src="/assets/planing_app.png" alt="Inventrack PTES Report" fill style={{ objectFit: "cover" }} />
+                <Image src="/assets/inventrack-ptes-report.svg" alt="Inventrack PTES Report" fill style={{ objectFit: "cover" }} />
                 <div className="project-overlay">
                   <a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
                 </div>
