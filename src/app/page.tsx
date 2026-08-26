@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,6 +55,12 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
+  const scrollToContact = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    closeMenu();
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
   return (
     <>
       {/* Background Elements */}
@@ -72,7 +78,7 @@ export default function Home() {
             <li><a href="#home" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#projects" onClick={closeMenu}>Proyectos</a></li>
-            <li><a href="#contact" onClick={closeMenu}>Contacto</a></li>
+            <li><a href="#contact" onClick={scrollToContact}>Contacto</a></li>
           </ul>
           <div className="hamburger" onClick={toggleMenu}>
             <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
