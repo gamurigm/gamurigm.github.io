@@ -313,7 +313,7 @@ export default function Home() {
         <div className="container footer-container">
           <div className="footer-logo">GAMUR<span>.</span></div>
           <div className="footer-contact">
-            <a href="tel:+59398419433"><i className="fas fa-phone"></i> 098419433</a>
+            <a href="tel:+593984919443"><i className="fas fa-phone"></i> 0984919443</a>
             <a href="mailto:gamurigm@gmail.com"><i className="fas fa-envelope"></i> gamurigm@gmail.com</a>
             <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i> LinkedIn</a>
           </div>
