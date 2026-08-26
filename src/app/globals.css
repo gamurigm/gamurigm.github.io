@@ -584,9 +584,8 @@ img {
    FOOTER
    ========================================= */
 footer {
-  padding: 3rem 0;
+  padding: 1.25rem 0;
   border-top: 1px solid var(--card-border);
-  text-align: center;
 }
 
 .footer-container {
@@ -604,9 +603,21 @@ footer {
   color: var(--primary-color);
 }
 
-footer p {
+.footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem 1.25rem;
+}
+
+.footer-contact a {
   color: var(--text-secondary);
   font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  color: var(--secondary-color);
 }
 
 /* =========================================
@@ -681,5 +692,9 @@ footer p {
   .footer-container {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .footer-contact {
+    justify-content: center;
   }
 }
