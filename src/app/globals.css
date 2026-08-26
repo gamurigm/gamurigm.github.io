@@ -592,14 +592,15 @@ footer {
 
 .footer-contact {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-  gap: 0.6rem 1.25rem;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .footer-contact a {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: clamp(1.15rem, 3vw, 1.75rem);
   text-decoration: none;
 }
 
