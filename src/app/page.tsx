@@ -101,7 +101,7 @@ export default function Home() {
           <div className="hero-visual">
             <div className="floating-element el-1">
               <i className="fas fa-code"></i>
-              <span>Python, C++ & JS</span>
+              <span>Python, C++ & TS</span>
             </div>
             <div className="floating-element el-2">
               <i className="fas fa-chart-line"></i>
