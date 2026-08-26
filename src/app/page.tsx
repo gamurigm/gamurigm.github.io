@@ -315,13 +315,33 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer id="contact">
+      <footer id="contact" className="site-footer">
         <div className="container footer-container">
-          <div className="footer-logo">GAMUR<span>.</span></div>
+          <div className="footer-brand">
+            <Link href="#home" className="footer-logo">
+              GAMUR<span>.</span>
+            </Link>
+            <span className="footer-tagline">Software Engineer & Full Stack</span>
+          </div>
+
           <div className="footer-contact">
-            <a href="tel:+593984919443"><i className="fas fa-phone"></i> 0984919443</a>
-            <a href="mailto:gamurigm@gmail.com"><i className="fas fa-envelope"></i> gamurigm@gmail.com</a>
-            <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:gamurigm@gmail.com" className="contact-chip" title="Enviar correo">
+              <i className="fas fa-envelope"></i>
+              <span>gamurigm@gmail.com</span>
+            </a>
+            <a href="tel:+593984919443" className="contact-chip" title="Llamar">
+              <i className="fas fa-phone"></i>
+              <span>+593 984 919 443</span>
+            </a>
+          </div>
+
+          <div className="footer-socials">
+            <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer" title="GitHub" className="footer-social-btn">
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="footer-social-btn">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
           </div>
         </div>
       </footer>
