@@ -125,7 +125,7 @@ export default function Home() {
         <div className="container">
           <div className="section-header">
             <h2>Mis Proyectos Key</h2>
-            <p>Una selección de mis 7 repositorios de GitHub más importantes que reflejan soluciones prácticas, IA, ciberseguridad y UI/UX.</p>
+            <p>Una selección de mis 7 repositorios de GitHub más importantes: sistemas distribuidos, IA, ciberseguridad y plataformas cloud-native.</p>
           </div>
 
           <div className="projects-grid">
@@ -139,12 +139,12 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>FastAPI</span>
-                  <span>React/NextJS</span>
-                  <span>C++ Engine</span>
+                  <span>C++</span>
+                  <span>Python</span>
+                  <span>Finance</span>
                 </div>
-                <h3>Asset Manager & AI</h3>
-                <p>Aplicación de gestión de portafolios y activos potenciada por una infraestructura C++ y un bot o sistema inteligente para análisis financiero.</p>
+                <h3><a href="https://github.com/gamurigm/AssetManager" target="_blank" rel="noopener noreferrer">Asset Manager & AI</a></h3>
+                <p>Gestión de carteras financieras con motores C++ e IA para análisis predictivo cuantitativo.</p>
               </div>
             </article>
 
@@ -158,12 +158,12 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>AI/ML</span>
-                  <span>Python</span>
-                  <span>NLP</span>
+                  <span>LangChain</span>
+                  <span>OpenAI</span>
+                  <span>FastAPI</span>
                 </div>
-                <h3>SciMind</h3>
-                <p>Asistente de inteligencia artificial y sistema de procesamiento de lenguaje enfocado en análisis científico, conocimiento y parsing de datos.</p>
+                <h3><a href="https://github.com/gamurigm/SciMind" target="_blank" rel="noopener noreferrer">SciMind</a></h3>
+                <p>Agente inteligente para investigación científica y gestión de conocimiento con LLMs.</p>
               </div>
             </article>
 
@@ -177,31 +177,31 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>Cybersecurity</span>
-                  <span>Python</span>
                   <span>SOC</span>
+                  <span>Wazuh</span>
+                  <span>Docker</span>
                 </div>
-                <h3>pySentinel SOC5</h3>
-                <p>Herramienta y dashboard de ciberseguridad diseñado para ser integrado en Operaciones de Centro de Seguridad (SOC), con monitorización proactiva.</p>
+                <h3><a href="https://github.com/gamurigm/pySentinel_SOC5" target="_blank" rel="noopener noreferrer">pySentinel SOC5</a></h3>
+                <p>Detección de amenazas con Wazuh, Suricata y Velociraptor para monitoreo en tiempo real.</p>
               </div>
             </article>
 
-            {/* Project 4: Music Player Flutter */}
+            {/* Project 4: Master Gateway Auth */}
             <article className="project-card">
               <div className="project-image">
-                <Image src="/assets/cyberpunk_music_player.png" alt="Music Player Flutter" fill style={{ objectFit: "cover" }} />
+                <Image src="/assets/cyberpunk_music_player.png" alt="Master Gateway Auth" fill style={{ objectFit: "cover" }} />
                 <div className="project-overlay">
-                  <a href="#" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
+                  <a href="https://github.com/gamurigm/master-gateway-auth" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
                 </div>
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>Flutter</span>
-                  <span>Mobile App</span>
-                  <span>Audio UI</span>
+                  <span>NestJS</span>
+                  <span>TypeScript</span>
+                  <span>Vue 3</span>
                 </div>
-                <h3>Cyber Music Player</h3>
-                <p>Reproductor de música robusto y moderno para dispositivos móviles desarrollado nativamente en Flutter, destacado por una interfaz fluida e inmersiva.</p>
+                <h3><a href="https://github.com/gamurigm/master-gateway-auth" target="_blank" rel="noopener noreferrer">Master Gateway Auth</a></h3>
+                <p>Gateway de autenticación y autorización centralizada con RBAC, menús dinámicos y proxy seguro para microservicios Zero Trust.</p>
               </div>
             </article>
 
@@ -215,12 +215,12 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>Voice-to-Text</span>
-                  <span>Utility UX</span>
-                  <span>Tools</span>
+                  <span>Whisper</span>
+                  <span>AI</span>
+                  <span>Python</span>
                 </div>
-                <h3>SpeechNotes</h3>
-                <p>Aplicación diseñada para máxima productividad, permitiendo transcribir voz a texto rápidamente con una interfaz limpia, enfocada en la usabilidad.</p>
+                <h3><a href="https://github.com/gamurigm/SpeechNotes" target="_blank" rel="noopener noreferrer">SpeechNotes</a></h3>
+                <p>Transcriptor y resumidor inteligente de notas de voz con modelos SOTA.</p>
               </div>
             </article>
 
@@ -229,36 +229,36 @@ export default function Home() {
               <div className="project-image">
                 <Image src="/assets/symptoleaf.png" alt="SymptoLeaf" fill style={{ objectFit: "cover" }} />
                 <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/SymptoLeaf" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
+                  <a href="https://github.com/gamurigm/backend-login_SymtoLeaf" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
                 </div>
               </div>
               <div className="project-info">
                 <div className="tags">
+                  <span>PyTorch</span>
                   <span>Computer Vision</span>
-                  <span>Colaboración</span>
-                  <span>Health</span>
+                  <span>Edge Computing</span>
                 </div>
-                <h3>SymptoLeaf</h3>
-                <p>Plataforma para el escaneo y diagnóstico instantáneo de síntomas y enfermedades en hojas de plantas usando visión por computadora e inteligencia artificial.</p>
+                <h3><a href="https://github.com/gamurigm/backend-login_SymtoLeaf" target="_blank" rel="noopener noreferrer">SymptoLeaf</a></h3>
+                <p>Detector de enfermedades agrícolas mediante visión artificial y optimización ONNX.</p>
               </div>
             </article>
 
-            {/* Project 7: Planing_App */}
+            {/* Project 7: Inventrack PTES Report */}
             <article className="project-card">
               <div className="project-image">
-                <Image src="/assets/planing_app.png" alt="Planing_App" fill style={{ objectFit: "cover" }} />
+                <Image src="/assets/planing_app.png" alt="Inventrack PTES Report" fill style={{ objectFit: "cover" }} />
                 <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/Planing_App" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
+                  <a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
                 </div>
               </div>
               <div className="project-info">
                 <div className="tags">
-                  <span>Productivity</span>
-                  <span>Frontend</span>
-                  <span>UX Design</span>
+                  <span>Kubernetes</span>
+                  <span>Docker</span>
+                  <span>OWASP ZAP</span>
                 </div>
-                <h3>Planning App</h3>
-                <p>Tablero de organización personal y sistema de agenda, enfocado en maximizar el seguimiento de tareas con un diseño atractivo e interacciones pulidas.</p>
+                <h3><a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer">Inventrack PTES Report</a></h3>
+                <p>Informe técnico de pentesting sobre Inventrack en Kubernetes, con evidencias, análisis de vulnerabilidades y validación de controles de seguridad.</p>
               </div>
             </article>
 
