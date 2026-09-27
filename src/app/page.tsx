@@ -1,350 +1,296 @@
 "use client";
 
-import { type MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+
+type Project = {
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  tags: string[];
+  categories: string[];
+  featured?: boolean;
+};
+
+const filters = ["Todos", "IA", "Seguridad", "Sistemas", "Datos"];
+
+const projects: Project[] = [
+  {
+    title: "Asset Manager & AI",
+    description: "Gestión de carteras financieras con motores C++ e IA para análisis predictivo cuantitativo.",
+    href: "https://github.com/gamurigm/AssetManager",
+    image: "/assets/ai_portfolio_chatbot.png",
+    tags: ["C++", "Python", "Finance"],
+    categories: ["IA", "Sistemas", "Datos"],
+    featured: true,
+  },
+  {
+    title: "SciMind",
+    description: "Agente inteligente para investigación científica y gestión de conocimiento con LLMs.",
+    href: "https://github.com/gamurigm/SciMind",
+    image: "/assets/scimind.png",
+    tags: ["LangChain", "OpenAI", "FastAPI"],
+    categories: ["IA", "Datos"],
+    featured: true,
+  },
+  {
+    title: "pySentinel SOC5",
+    description: "Plataforma SOC e IDS con telemetría multi-herramienta e IA para detectar amenazas en tiempo real.",
+    href: "https://github.com/gamurigm/pySentinel_SOC5",
+    image: "/assets/pysentinel_soc.png",
+    tags: ["Suricata & Zeek", "NVIDIA NIM", "PostgreSQL"],
+    categories: ["Seguridad", "IA", "Datos"],
+  },
+  {
+    title: "Master Gateway Auth",
+    description: "Gateway centralizado con RBAC, menús dinámicos y proxy seguro para microservicios Zero Trust.",
+    href: "https://github.com/gamurigm/master-gateway-auth",
+    image: "/assets/master-gateway-auth.svg",
+    tags: ["NestJS", "TypeScript", "Vue 3"],
+    categories: ["Sistemas", "Seguridad"],
+  },
+  {
+    title: "SpeechNotes",
+    description: "Transcripción y organización de notas de voz con una experiencia rápida, privada y asistida por IA.",
+    href: "https://github.com/gamurigm/SpeechNotes",
+    image: "/assets/speechnotes.png",
+    tags: ["Whisper", "AI", "Python"],
+    categories: ["IA", "Datos"],
+  },
+  {
+    title: "SymptoLeaf",
+    description: "Visión por computador para identificar síntomas en hojas y acelerar decisiones en agricultura.",
+    href: "https://github.com/gamurigm/backend-login_SymtoLeaf",
+    image: "/assets/symptoleaf.png",
+    tags: ["PyTorch", "Computer Vision", "Edge Computing"],
+    categories: ["IA", "Datos"],
+  },
+  {
+    title: "Inventrack PTES Report",
+    description: "Plataforma cloud-native para documentar pruebas de penetración y convertir hallazgos en acciones claras.",
+    href: "https://github.com/gamurigm/inventrack-ptes-report",
+    image: "/assets/inventrack-ptes-report.svg",
+    tags: ["Kubernetes", "Docker", "OWASP ZAP"],
+    categories: ["Seguridad", "Sistemas"],
+  },
+  {
+    title: "Federated API Gateway",
+    description: "Capa de integración segura con autenticación federada, políticas de acceso y servicios desacoplados.",
+    href: "https://github.com/gamurigm/federated-api-gateway",
+    image: "/assets/federated-api-gateway.svg",
+    tags: ["Next.js", "Supabase", "JWT RS256"],
+    categories: ["Sistemas", "Seguridad"],
+  },
+  {
+    title: "DeepSeek R1 RAG",
+    description: "Pipeline de recuperación aumentada para consultar conocimiento propio con precisión y contexto.",
+    href: "https://github.com/gamurigm/deepseek-r1-rag",
+    image: "/assets/deepseek-r1-rag.svg",
+    tags: ["DeepSeek R1", "LangChain", "ChromaDB"],
+    categories: ["IA", "Datos"],
+  },
+];
+
+function closeMenu(setIsMenuOpen: (value: boolean) => void) {
+  setIsMenuOpen(false);
+}
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("Todos");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Scroll event for navbar
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    // Intersection Observer for scroll animations
-    const revealElements = document.querySelectorAll(".project-card, .section-header, .box-glass");
-
-    const revealOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          (entry.target as HTMLElement).style.opacity = "1";
-          (entry.target as HTMLElement).style.transform = "translateY(0)";
-          observer.unobserve(entry.target);
-        }
-      });
-    }, revealOptions);
-
-    revealElements.forEach(el => {
-      (el as HTMLElement).style.opacity = "0";
-      (el as HTMLElement).style.transform = "translateY(30px)";
-      (el as HTMLElement).style.transition = "all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-      observer.observe(el);
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  const scrollToContact = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    closeMenu();
-    const contactEl = document.getElementById("contact");
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToAbout = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    closeMenu();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const visibleProjects = projects.filter(
+    (project) => activeFilter === "Todos" || project.categories.includes(activeFilter),
+  );
 
   return (
     <>
-      {/* Background Elements */}
-      <div className="bg-shape shape-1"></div>
-      <div className="bg-shape shape-2"></div>
-      <div className="bg-shape shape-3"></div>
+      <a className="skip-link" href="#main-content">
+        Saltar al contenido
+      </a>
 
-      {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} id="navbar">
-        <div className="container nav-container">
-          <Link href="#" className="logo">
-            GAMUR<span>.</span>
-          </Link>
-          <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
-            <li><a href="#home" onClick={closeMenu}>Inicio</a></li>
-            <li><a href="#about" onClick={scrollToAbout}>Sobre Mí</a></li>
-            <li><a href="#projects" onClick={closeMenu}>Proyectos</a></li>
-            <li><a href="#contact" onClick={scrollToContact}>Contacto</a></li>
-          </ul>
-          <div className="hamburger" onClick={toggleMenu}>
-            <i className={isMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
-          </div>
+      <header className="site-header">
+        <div className="shell header-inner">
+          <a className="brand" href="#home" aria-label="Gabriel Murillo, inicio">
+            GM<span>.</span>
+          </a>
+
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-expanded={isMenuOpen}
+            aria-controls="primary-navigation"
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+          </button>
+
+          <nav
+            className={`primary-nav ${isMenuOpen ? "is-open" : ""}`}
+            id="primary-navigation"
+            aria-label="Navegación principal"
+          >
+            <a href="#home" onClick={() => closeMenu(setIsMenuOpen)}>
+              Inicio
+            </a>
+            <a href="#about" onClick={() => closeMenu(setIsMenuOpen)}>
+              Sobre mí
+            </a>
+            <a href="#projects" onClick={() => closeMenu(setIsMenuOpen)}>
+              Proyectos
+            </a>
+            <a className="nav-contact" href="#contact" onClick={() => closeMenu(setIsMenuOpen)}>
+              Hablemos <span aria-hidden="true">↗</span>
+            </a>
+          </nav>
         </div>
-      </nav>
+      </header>
 
-      {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="container hero-container">
-          <div className="hero-content" id="about">
-            <p className="subtitle">Hola, soy</p>
-            <h1 className="title">Gabriel Murillo</h1>
-            <h2 className="role">Ingeniero de Software <span>& Full Stack Developer</span></h2>
-            <p className="description">
-              Desarrollo soluciones web y backend, con interés en inteligencia artificial, análisis de datos, ciberseguridad y arquitecturas de aplicaciones modernas.
+      <main id="main-content">
+        <section className="hero" id="home" aria-labelledby="hero-title">
+          <div className="shell hero-grid">
+            <div className="hero-copy" id="about">
+              <p className="eyebrow">Gabriel Murillo / Software Engineer</p>
+              <h1 id="hero-title">
+                Construyo sistemas que <span>hacen avanzar</span> ideas ambiciosas.
+              </h1>
+              <p className="hero-description">
+                Ingeniería de software, inteligencia artificial y plataformas seguras para convertir problemas complejos en productos claros.
+              </p>
+
+              <div className="hero-actions">
+                <a className="button button-primary" href="#projects">
+                  Ver proyectos <span aria-hidden="true">↘</span>
+                </a>
+                <a className="button button-quiet" href="mailto:gabriel.murillo@unl.edu.ec">
+                  Contactar
+                </a>
+              </div>
+
+              <div className="social-links" aria-label="Perfiles profesionales">
+                <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer">
+                  GitHub <span aria-hidden="true">↗</span>
+                </a>
+                <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer">
+                  LinkedIn <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+
+            <figure className="hero-visual">
+              <Image
+                src="/assets/hero-systems.png"
+                alt="Visual abstracto de sistemas de software conectados en una arquitectura de datos"
+                fill
+                priority
+                sizes="(max-width: 760px) 100vw, 52vw"
+              />
+              <figcaption>Arquitecturas que conectan datos, producto y negocio.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section className="work-section" id="projects" aria-labelledby="projects-title">
+          <div className="shell">
+            <div className="section-intro">
+              <div>
+                <p className="section-index">01 / Trabajo seleccionado.</p>
+                <h2 id="projects-title">Ideas convertidas en sistemas que funcionan.</h2>
+              </div>
+              <p>
+                Una selección de proyectos donde producto, datos e ingeniería se encuentran para resolver problemas reales.
+              </p>
+            </div>
+
+            <div className="project-filters" role="group" aria-label="Filtrar proyectos por área">
+              {filters.map((filter) => (
+                <button
+                  className={activeFilter === filter ? "is-active" : ""}
+                  key={filter}
+                  type="button"
+                  aria-pressed={activeFilter === filter}
+                  onClick={() => setActiveFilter(filter)}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+
+            <p className="results-status" role="status" aria-live="polite">
+              {visibleProjects.length} {visibleProjects.length === 1 ? "proyecto visible" : "proyectos visibles"}
             </p>
-            <div className="hero-btns">
-              <a href="#projects" className="btn btn-primary">Ver Mis 9 Proyectos <i className="fas fa-arrow-right"></i></a>
-            </div>
-            <div className="social-links">
-              <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fab fa-github"></i></a>
-              <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+
+            <div className="projects-grid">
+              {visibleProjects.map((project) => (
+                <article className={`project-card ${project.featured ? "project-card-featured" : ""}`} key={project.title}>
+                  <a className="project-media" href={project.href} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={project.image}
+                      alt={`Vista previa de ${project.title}`}
+                      fill
+                      sizes={project.featured ? "(max-width: 760px) 100vw, 50vw" : "(max-width: 760px) 100vw, 33vw"}
+                    />
+                    <span className="project-link" aria-hidden="true">↗</span>
+                  </a>
+
+                  <div className="project-content">
+                    <ul className="project-tags" aria-label={`Tecnologías de ${project.title}`}>
+                      {project.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                      ))}
+                    </ul>
+                    <h3>
+                      <a href={project.href} target="_blank" rel="noopener noreferrer">
+                        {project.title}
+                      </a>
+                    </h3>
+                    <p>{project.description}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
-          <div className="hero-visual">
-            <div className="floating-element el-1">
-              <i className="fas fa-code"></i>
-              <span>Python, C++ & TS</span>
-            </div>
-            <div className="floating-element el-2">
-              <i className="fas fa-chart-line"></i>
-              <span>Data & AI</span>
-            </div>
-            <div className="floating-element el-3">
-              <i className="fas fa-mobile-alt"></i>
-              <span>Mobile & UI/UX</span>
-            </div>
-            <div className="hero-image-wrapper">
-              <div className="abstract-sphere"></div>
+        </section>
+
+        <section className="statement-section" aria-labelledby="statement-title">
+          <div className="shell statement-grid">
+            <p className="section-index">02 / Forma de trabajar</p>
+            <div>
+              <h2 id="statement-title">Precisión técnica. Curiosidad constante. Resultados que se sienten simples.</h2>
+              <p>
+                Me gusta trabajar cerca del problema: entender el contexto, diseñar una base sólida y dejar una experiencia que se sienta inevitablemente clara.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Projects Section */}
-      <section id="projects" className="projects">
-        <div className="container">
-          <div className="section-header">
-            <h2>Mis 9 Proyectos Key</h2>
-            <p>Una selección de mis 9 repositorios de GitHub más importantes: sistemas distribuidos, IA, ciberseguridad y plataformas cloud-native.</p>
+      <footer className="site-footer" id="contact">
+        <div className="shell footer-grid">
+          <div>
+            <p className="section-index">03 / Contacto</p>
+            <h2>¿Tienes un problema interesante?</h2>
           </div>
-
-          <div className="projects-grid">
-            {/* Project 1: AssetManager */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/ai_portfolio_chatbot.png" alt="AssetManager" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/AssetManager" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>C++</span>
-                  <span>Python</span>
-                  <span>Finance</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/AssetManager" target="_blank" rel="noopener noreferrer">Asset Manager & AI</a></h3>
-                <p>Gestión de carteras financieras con motores C++ e IA para análisis predictivo cuantitativo.</p>
-              </div>
-            </article>
-
-            {/* Project 2: SciMind */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/scimind.png" alt="SciMind" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/SciMind" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>LangChain</span>
-                  <span>OpenAI</span>
-                  <span>FastAPI</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/SciMind" target="_blank" rel="noopener noreferrer">SciMind</a></h3>
-                <p>Agente inteligente para investigación científica y gestión de conocimiento con LLMs.</p>
-              </div>
-            </article>
-
-            {/* Project 3: pySentinel_SOC5 */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/pysentinel_soc.png" alt="pySentinel_SOC5" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/pySentinel_SOC5" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>Suricata &amp; Zeek</span>
-                  <span>NVIDIA NIM</span>
-                  <span>PostgreSQL</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/pySentinel_SOC5" target="_blank" rel="noopener noreferrer">pySentinel SOC5</a></h3>
-                <p>Plataforma SOC/IDS con respuesta automatizada, telemetría multi-herramienta e IA para detección y análisis de amenazas en tiempo real.</p>
-              </div>
-            </article>
-
-            {/* Project 4: Master Gateway Auth */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/master-gateway-auth.svg" alt="Master Gateway Auth" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/master-gateway-auth" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>NestJS</span>
-                  <span>TypeScript</span>
-                  <span>Vue 3</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/master-gateway-auth" target="_blank" rel="noopener noreferrer">Master Gateway Auth</a></h3>
-                <p>Gateway de autenticación y autorización centralizada con RBAC, menús dinámicos y proxy seguro para microservicios Zero Trust.</p>
-              </div>
-            </article>
-
-            {/* Project 5: SpeechNotes */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/speechnotes.png" alt="SpeechNotes" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/SpeechNotes" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>Whisper</span>
-                  <span>AI</span>
-                  <span>Python</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/SpeechNotes" target="_blank" rel="noopener noreferrer">SpeechNotes</a></h3>
-                <p>Transcriptor y resumidor inteligente de notas de voz con modelos SOTA.</p>
-              </div>
-            </article>
-
-            {/* Project 6: SymptoLeaf */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/symptoleaf.png" alt="SymptoLeaf" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/backend-login_SymtoLeaf" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>PyTorch</span>
-                  <span>Computer Vision</span>
-                  <span>Edge Computing</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/backend-login_SymtoLeaf" target="_blank" rel="noopener noreferrer">SymptoLeaf</a></h3>
-                <p>Detector de enfermedades agrícolas mediante visión artificial y optimización ONNX.</p>
-              </div>
-            </article>
-
-            {/* Project 7: Inventrack PTES Report */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/inventrack-ptes-report.svg" alt="Inventrack PTES Report" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>Kubernetes</span>
-                  <span>Docker</span>
-                  <span>OWASP ZAP</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/inventrack-ptes-report" target="_blank" rel="noopener noreferrer">Inventrack PTES Report</a></h3>
-                <p>Informe técnico de pentesting sobre Inventrack en Kubernetes, con evidencias, análisis de vulnerabilidades y validación de controles de seguridad.</p>
-              </div>
-            </article>
-
-            {/* Project 8: Federated API Gateway */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/federated-api-gateway.svg" alt="Federated API Gateway" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/API_Server" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>Next.js</span>
-                  <span>Supabase</span>
-                  <span>JWT RS256</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/API_Server" target="_blank" rel="noopener noreferrer">Federated API Gateway</a></h3>
-                <p>Gateway serverless para integrar APIs externas con autenticación RS256/JWKS y credenciales de upstream protegidas.</p>
-              </div>
-            </article>
-
-            {/* Project 9: DeepSeek R1 RAG */}
-            <article className="project-card">
-              <div className="project-image">
-                <Image src="/assets/deepseek-r1-rag.svg" alt="DeepSeek R1 RAG" fill style={{ objectFit: "cover" }} />
-                <div className="project-overlay">
-                  <a href="https://github.com/gamurigm/deepSeek_r1_distill_RAG" target="_blank" rel="noopener noreferrer" className="view-btn"><i className="fas fa-external-link-alt"></i></a>
-                </div>
-              </div>
-              <div className="project-info">
-                <div className="tags">
-                  <span>DeepSeek R1</span>
-                  <span>LangChain</span>
-                  <span>ChromaDB</span>
-                </div>
-                <h3><a href="https://github.com/gamurigm/deepSeek_r1_distill_RAG" target="_blank" rel="noopener noreferrer">DeepSeek R1 RAG</a></h3>
-                <p>Sistema multiagente de QA/RAG que transforma documentos PDF en una base de conocimiento consultable.</p>
-              </div>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer id="contact" className="site-footer">
-        <div className="container footer-container">
-          <div className="footer-brand">
-            <Link href="#home" className="footer-logo">
-              GAMUR<span>.</span>
-            </Link>
-            <span className="footer-tagline">Software Engineer & Full Stack</span>
-          </div>
-
           <div className="footer-contact">
-            <a href="mailto:gamurigm@gmail.com" className="contact-chip" title="Enviar correo">
-              <i className="fas fa-envelope"></i>
-              <span>gamurigm@gmail.com</span>
+            <p>Hablemos sobre una idea, un producto o un sistema que merezca ser construido.</p>
+            <a className="footer-email" href="mailto:gabriel.murillo@unl.edu.ec">
+              gabriel.murillo@unl.edu.ec <span aria-hidden="true">↗</span>
             </a>
-            <a href="tel:+593984919443" className="contact-chip" title="Llamar">
-              <i className="fas fa-phone"></i>
-              <span>+593 984 919 443</span>
-            </a>
-          </div>
-
-          <div className="footer-socials">
-            <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer" title="GitHub" className="footer-social-btn">
-              <i className="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="footer-social-btn">
-              <i className="fab fa-linkedin-in"></i>
-            </a>
+            <p className="footer-meta">© {new Date().getFullYear()} Gabriel Murillo</p>
           </div>
         </div>
       </footer>

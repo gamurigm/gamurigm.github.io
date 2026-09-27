@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "Gamur | Portfolio",
-  description: "Desarrollador de software especializado en finanzas, IA y backend de alto rendimiento.",
+  title: "Gabriel Murillo | Software Engineer",
+  description: "Portfolio de Gabriel Murillo: software, inteligencia artificial y sistemas seguros.",
 };
 
 export default function RootLayout({
@@ -16,12 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-      </head>
-      <body className={outfit.className}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
