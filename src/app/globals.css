@@ -297,10 +297,28 @@ button {
   inset: 0;
   pointer-events: none;
   position: absolute;
+  z-index: 2;
 }
 
 .hero-visual img {
   object-fit: cover;
+  z-index: 0;
+}
+
+.hero-field {
+  display: block;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: auto;
+  position: absolute;
+  transition: opacity 700ms ease;
+  width: 100%;
+  z-index: 1;
+}
+
+.hero-visual.has-field .hero-field {
+  opacity: 0.92;
 }
 
 .hero-visual figcaption {
@@ -310,7 +328,7 @@ button {
   left: 24px;
   letter-spacing: 0.03em;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
 }
 
 .work-section {
@@ -498,7 +516,7 @@ button {
 .footer-grid {
   display: grid;
   gap: 50px;
-  grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
 }
 
 .statement-section h2 {
@@ -517,11 +535,12 @@ button {
 }
 
 .site-footer h2 {
-  max-width: 540px;
+  max-width: 440px;
 }
 
 .footer-contact {
-  align-self: end;
+  align-self: start;
+  padding-top: 28px;
 }
 
 .footer-contact > p {
@@ -699,6 +718,10 @@ button {
   .statement-grid,
   .footer-grid {
     gap: 28px;
+  }
+
+  .footer-contact {
+    padding-top: 0;
   }
 }
 

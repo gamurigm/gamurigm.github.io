@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { startHeroField } from "./hero-field";
 
 type Project = {
   title: string;
@@ -99,6 +100,8 @@ function closeMenu(setIsMenuOpen: (value: boolean) => void) {
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("Todos");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHeroFieldReady, setIsHeroFieldReady] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -109,6 +112,13 @@ export default function Home() {
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    return startHeroField(canvas, () => setIsHeroFieldReady(true));
   }, []);
 
   const visibleProjects = projects.filter(
@@ -191,7 +201,7 @@ export default function Home() {
               </div>
             </div>
 
-            <figure className="hero-visual">
+            <figure className={`hero-visual ${isHeroFieldReady ? "has-field" : ""}`}>
               <Image
                 src="/assets/hero-systems.png"
                 alt="Visual abstracto de sistemas de software conectados en una arquitectura de datos"
@@ -199,6 +209,7 @@ export default function Home() {
                 priority
                 sizes="(max-width: 760px) 100vw, 52vw"
               />
+              <canvas className="hero-field" ref={canvasRef} aria-hidden="true" />
               <figcaption>Arquitecturas que conectan datos, producto y negocio.</figcaption>
             </figure>
           </div>

@@ -3,11 +3,18 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const page = await readFile(new URL("../src/app/page.tsx", import.meta.url), "utf8");
+const heroField = await readFile(new URL("../src/app/hero-field.ts", import.meta.url), "utf8");
+const shader = await readFile(new URL("../src/app/hero-field.wgsl", import.meta.url), "utf8");
 const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
 
 test("portfolio uses the premium editorial interaction model", () => {
   assert.match(page, /Trabajo seleccionado\./);
   assert.match(page, /hero-systems\.png/);
+  assert.match(page, /startHeroField/);
+  assert.match(heroField, /frameLoop/);
+  assert.match(heroField, /gpu\.dispose/);
+  assert.match(shader, /@fragment fn fs_main/);
+  assert.match(shader, /pointer/);
   assert.match(page, /aria-expanded=/);
   assert.match(page, /aria-pressed=/);
   assert.match(page, /mailto:gamurigm@gmail\.com/);
