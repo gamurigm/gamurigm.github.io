@@ -419,58 +419,31 @@ button {
 }
 
 .projects-grid {
-  display: grid;
-  gap: 12px;
-  grid-auto-flow: dense;
-  grid-auto-rows: clamp(66px, 8vw, 112px);
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-count: 3;
+  column-gap: 0;
 }
 
 .project-tile {
-  min-height: 0;
-  min-width: 0;
-}
-
-.project-tile-feature {
-  grid-column: span 7;
-  grid-row: span 4;
-}
-
-.project-tile-secondary {
-  grid-column: span 5;
-  grid-row: span 4;
-}
-
-.project-tile-wide {
-  grid-column: span 5;
-  grid-row: span 3;
-}
-
-.project-tile-tall {
-  grid-column: span 4;
-  grid-row: span 4;
-}
-
-.project-tile-square {
-  grid-column: span 4;
-  grid-row: span 3;
-}
-
-.project-tile-small {
-  grid-column: span 3;
-  grid-row: span 2;
+  break-inside: avoid;
+  display: block;
 }
 
 .project-media {
   background: var(--surface);
   border: 1px solid var(--line);
   display: block;
-  height: 100%;
-  min-height: 100%;
+  height: auto;
   overflow: hidden;
   perspective: 900px;
   position: relative;
 }
+
+.project-tile-feature .project-media { aspect-ratio: 1.3 / 1; }
+.project-tile-secondary .project-media { aspect-ratio: 1.05 / 1; }
+.project-tile-wide .project-media { aspect-ratio: 1.5 / 1; }
+.project-tile-tall .project-media { aspect-ratio: 0.8 / 1; }
+.project-tile-square .project-media { aspect-ratio: 1 / 1; }
+.project-tile-small .project-media { aspect-ratio: 1.18 / 1; }
 
 .project-media img {
   object-fit: cover;
@@ -897,31 +870,17 @@ button {
   }
 
   .projects-grid {
-    gap: 8px;
-    grid-auto-rows: clamp(92px, 25vw, 142px);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-count: 2;
   }
 
-  .project-tile-feature,
-  .project-tile-secondary {
-    grid-column: span 2;
-    grid-row: span 3;
-  }
-
-  .project-tile-wide {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .project-tile-tall {
-    grid-column: span 1;
-    grid-row: span 3;
-  }
-
-  .project-tile-square,
-  .project-tile-small {
-    grid-column: span 1;
-    grid-row: span 2;
+  .project-tile-feature .project-media,
+  .project-tile-secondary .project-media,
+  .project-tile-wide .project-media,
+  .project-tile-tall .project-media,
+  .project-tile-square .project-media,
+  .project-tile-small .project-media {
+    aspect-ratio: auto;
+    min-height: 180px;
   }
 
   .site-footer {

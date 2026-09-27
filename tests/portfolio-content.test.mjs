@@ -22,6 +22,8 @@ test("portfolio uses the premium editorial interaction model", () => {
   assert.match(styles, /fragment-rebuild/);
   assert.match(styles, /\.project-media:hover \.project-fragment/);
   assert.match(styles, /\.project-media:focus-visible \.project-fragment/);
+  assert.match(styles, /\.projects-grid\s*\{[\s\S]*column-count: 3/);
+  assert.doesNotMatch(styles, /grid-auto-rows/);
   assert.match(page, /aria-expanded=/);
   assert.match(page, /aria-pressed=/);
   assert.match(page, /mailto:gamurigm@gmail\.com/);
