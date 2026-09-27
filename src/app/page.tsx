@@ -118,6 +118,9 @@ export default function Home() {
   const [activeProjectTitle, setActiveProjectTitle] = useState(projects[0].title);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHeroFieldReady, setIsHeroFieldReady] = useState(false);
+  const [isRevealReady, setIsRevealReady] = useState(false);
+  const [revealedSections, setRevealedSections] = useState<Record<string, boolean>>({});
+  const [scrollProgress, setScrollProgress] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -138,10 +141,76 @@ export default function Home() {
     return startHeroField(canvas, () => setIsHeroFieldReady(true));
   }, []);
 
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateScrollProgress = () => {
+      const { clientHeight, scrollHeight, scrollTop } = document.documentElement;
+      const scrollableHeight = Math.max(scrollHeight - clientHeight, 1);
+      setScrollProgress(Math.min(1, Math.max(0, scrollTop / scrollableHeight)));
+      frameId = 0;
+    };
+
+    const handleScroll = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(updateScrollProgress);
+    };
+
+    updateScrollProgress();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const revealReadyFrame = window.requestAnimationFrame(() => {
+      setIsRevealReady(true);
+      if (!("IntersectionObserver" in window)) {
+        setRevealedSections(
+          Object.fromEntries(revealTargets.map((target) => [target.dataset.reveal ?? "", true])),
+        );
+      }
+    });
+
+    if (!("IntersectionObserver" in window)) {
+      return () => window.cancelAnimationFrame(revealReadyFrame);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+        if (!visibleEntries.length) return;
+
+        setRevealedSections((current) => {
+          const next = { ...current };
+          visibleEntries.forEach((entry) => {
+            const key = (entry.target as HTMLElement).dataset.reveal;
+            if (key) next[key] = true;
+          });
+          return next;
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+    );
+
+    revealTargets.forEach((target) => observer.observe(target));
+    return () => {
+      window.cancelAnimationFrame(revealReadyFrame);
+      observer.disconnect();
+    };
+  }, []);
+
   const visibleProjects = projects.filter(
     (project) => activeFilter === "Todos" || project.categories.includes(activeFilter),
   );
   const activeProject = visibleProjects.find((project) => project.title === activeProjectTitle) ?? visibleProjects[0];
+
+  const revealClass = (key: string) =>
+    `reveal-on-scroll ${isRevealReady ? "reveal-ready" : ""} ${revealedSections[key] ? "is-visible" : ""}`;
 
   const selectFilter = (filter: string) => {
     setActiveFilter(filter);
@@ -153,6 +222,14 @@ export default function Home() {
 
   return (
     <>
+      <div
+        className="scroll-progress"
+        aria-hidden="true"
+        style={{ "--scroll-progress": scrollProgress } as CSSProperties}
+      >
+        <span />
+      </div>
+
       <a className="skip-link" href="#main-content">
         Saltar al contenido
       </a>
@@ -197,7 +274,13 @@ export default function Home() {
       </header>
 
       <main id="main-content">
-        <section className="hero" id="home" aria-labelledby="hero-title">
+        <section
+          className={`hero ${revealClass("hero")}`}
+          id="home"
+          aria-labelledby="hero-title"
+          data-reveal="hero"
+          style={{ "--hero-scroll": scrollProgress } as CSSProperties}
+        >
           <div className="shell hero-grid">
             <div className="hero-copy" id="about">
               <p className="eyebrow">Gabriel Murillo / Software Engineer</p>
@@ -241,7 +324,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="work-section" id="projects" aria-labelledby="projects-title">
+        <section
+          className={`work-section ${revealClass("projects")}`}
+          id="projects"
+          aria-labelledby="projects-title"
+          data-reveal="projects"
+        >
           <div className="shell">
             <div className="section-intro">
               <div>
@@ -273,8 +361,12 @@ export default function Home() {
 
             <div className="collage-stage">
               <div className="projects-grid">
-              {visibleProjects.map((project) => (
-                <article className={`project-tile project-tile-${project.mosaic}`} key={project.title}>
+              {visibleProjects.map((project, index) => (
+                <article
+                  className={`project-tile project-tile-${project.mosaic}`}
+                  key={project.title}
+                  style={{ "--tile-index": index } as CSSProperties}
+                >
                   <a
                     className="project-media"
                     href={project.href}
@@ -332,7 +424,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="statement-section" aria-labelledby="statement-title">
+        <section
+          className={`statement-section ${revealClass("statement")}`}
+          aria-labelledby="statement-title"
+          data-reveal="statement"
+        >
           <div className="shell statement-grid">
             <p className="section-index">02 / Forma de trabajar</p>
             <div>
@@ -345,7 +441,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer" id="contact">
+      <footer className={`site-footer ${revealClass("contact")}`} id="contact" data-reveal="contact">
         <div className="shell footer-grid">
           <div>
             <p className="section-index">03 / Contacto</p>

@@ -18,8 +18,15 @@ test("portfolio uses the premium editorial interaction model", () => {
   assert.match(shader, /pointer/);
   assert.match(page, /project-fragments/);
   assert.match(page, /project-detail/);
+  assert.match(page, /scroll-progress/);
+  assert.match(page, /IntersectionObserver/);
+  assert.match(page, /requestAnimationFrame/);
+  assert.match(page, /reveal-on-scroll/);
   assert.match(styles, /\.project-fragments/);
   assert.match(styles, /fragment-rebuild/);
+  assert.match(styles, /\.scroll-progress/);
+  assert.match(styles, /collage-rise/);
+  assert.match(styles, /prefers-reduced-motion/);
   assert.match(styles, /\.project-media:hover \.project-fragment/);
   assert.match(styles, /\.project-media:focus-visible \.project-fragment/);
   assert.match(styles, /\.projects-grid\s*\{[\s\S]*column-count: 3/);
@@ -31,6 +38,6 @@ test("portfolio uses the premium editorial interaction model", () => {
   assert.match(page, /https:\/\/www\.linkedin\.com\/in\/gmurillo-medina\//);
   assert.doesNotMatch(page, /gabriel\.murillo@unl\.edu\.ec/);
   assert.match(page, /<main/);
-  assert.doesNotMatch(page, /window\.addEventListener\("scroll"/);
+  assert.match(page, /window\.addEventListener\("scroll"/);
   assert.doesNotMatch(layout, /fontawesome/i);
 });

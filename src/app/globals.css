@@ -100,6 +100,26 @@ button {
   backdrop-filter: blur(18px);
 }
 
+.scroll-progress {
+  background: rgba(114, 215, 255, 0.08);
+  height: 2px;
+  inset: 0 0 auto;
+  pointer-events: none;
+  position: fixed;
+  z-index: 40;
+}
+
+.scroll-progress span {
+  background: linear-gradient(90deg, var(--accent), var(--violet), #dff8ff);
+  box-shadow: 0 0 16px rgba(114, 215, 255, 0.72);
+  display: block;
+  height: 100%;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left center;
+  transition: transform 120ms linear;
+  width: 100%;
+}
+
 .header-inner {
   align-items: center;
   display: flex;
@@ -191,16 +211,46 @@ button {
   padding: clamp(88px, 13vw, 170px) 0 128px;
 }
 
+.reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-on-scroll.reveal-ready:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 38px, 0);
+}
+
+.reveal-on-scroll.is-visible {
+  animation: reveal-in 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reveal-in {
+  0% {
+    filter: blur(7px);
+    opacity: 0;
+    transform: translate3d(0, 38px, 0);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .hero-grid {
   align-items: center;
   display: grid;
   gap: clamp(48px, 8vw, 128px);
   grid-template-columns: minmax(0, 0.91fr) minmax(0, 1.09fr);
+  perspective: 1400px;
 }
 
 .hero-copy {
   position: relative;
   z-index: 1;
+  transform: translate3d(0, calc(var(--hero-scroll, 0) * -18px), 0);
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .eyebrow,
@@ -309,6 +359,8 @@ button {
   min-height: 480px;
   overflow: hidden;
   position: relative;
+  transform: translate3d(0, calc(var(--hero-scroll, 0) * 26px), 0) rotateZ(calc(var(--hero-scroll, 0) * -0.6deg));
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .hero-visual::after {
@@ -447,6 +499,7 @@ button {
   gap: clamp(28px, 5vw, 72px);
   grid-template-columns: minmax(0, 1.5fr) minmax(230px, 0.5fr);
   margin-top: 12px;
+  perspective: 1400px;
 }
 
 .projects-grid {
@@ -457,6 +510,29 @@ button {
 .project-tile {
   break-inside: avoid;
   display: block;
+}
+
+.work-section.is-visible .project-tile {
+  animation: collage-rise 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--tile-index, 0) * 72ms);
+}
+
+@keyframes collage-rise {
+  0% {
+    filter: blur(6px) saturate(0.7);
+    opacity: 0;
+    transform: translate3d(0, 42px, 0) rotateX(5deg) rotateZ(-0.7deg);
+  }
+  72% {
+    filter: blur(0) saturate(1.1);
+    opacity: 1;
+    transform: translate3d(0, -4px, 0) rotateX(0) rotateZ(0.2deg);
+  }
+  100% {
+    filter: none;
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0) rotateZ(0);
+  }
 }
 
 .project-media {
@@ -773,6 +849,26 @@ button {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+
+  .reveal-on-scroll,
+  .reveal-on-scroll.reveal-ready:not(.is-visible),
+  .reveal-on-scroll.is-visible {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-copy,
+  .hero-visual,
+  .work-section.is-visible .project-tile {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
