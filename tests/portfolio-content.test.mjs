@@ -10,7 +10,7 @@ const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url),
 
 test("portfolio uses the premium editorial interaction model", () => {
   assert.match(page, /Trabajo seleccionado\./);
-  assert.match(page, /hero-systems\.png/);
+  assert.match(page, /hero-cyberpunk-v2\.png/);
   assert.match(page, /startHeroField/);
   assert.match(heroField, /frameLoop/);
   assert.match(heroField, /gpu\.dispose/);

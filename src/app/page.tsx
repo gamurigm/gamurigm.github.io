@@ -229,8 +229,8 @@ export default function Home() {
 
             <figure className={`hero-visual ${isHeroFieldReady ? "has-field" : ""}`}>
               <Image
-                src="/assets/hero-systems.png"
-                alt="Visual abstracto de sistemas de software conectados en una arquitectura de datos"
+                src="/assets/hero-cyberpunk-v2.png"
+                alt="Visual abstracto de una arquitectura de inteligencia artificial cyberpunk con redes de datos luminosas"
                 fill
                 priority
                 sizes="(max-width: 760px) 100vw, 52vw"
