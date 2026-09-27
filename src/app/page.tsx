@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { startHeroField } from "./hero-field";
 
@@ -11,8 +11,15 @@ type Project = {
   image: string;
   tags: string[];
   categories: string[];
+  mosaic: "feature" | "secondary" | "wide" | "tall" | "square" | "small";
   featured?: boolean;
 };
+
+const fragmentGrid = Array.from({ length: 16 }, (_, index) => ({
+  column: index % 4,
+  index,
+  row: Math.floor(index / 4),
+}));
 
 const filters = ["Todos", "IA", "Seguridad", "Sistemas", "Datos"];
 
@@ -24,6 +31,7 @@ const projects: Project[] = [
     image: "/assets/ai_portfolio_chatbot.png",
     tags: ["C++", "Python", "Finance"],
     categories: ["IA", "Sistemas", "Datos"],
+    mosaic: "feature",
     featured: true,
   },
   {
@@ -33,6 +41,7 @@ const projects: Project[] = [
     image: "/assets/scimind.png",
     tags: ["LangChain", "OpenAI", "FastAPI"],
     categories: ["IA", "Datos"],
+    mosaic: "secondary",
     featured: true,
   },
   {
@@ -42,6 +51,7 @@ const projects: Project[] = [
     image: "/assets/pysentinel_soc.png",
     tags: ["Suricata & Zeek", "NVIDIA NIM", "PostgreSQL"],
     categories: ["Seguridad", "IA", "Datos"],
+    mosaic: "wide",
   },
   {
     title: "Master Gateway Auth",
@@ -50,6 +60,7 @@ const projects: Project[] = [
     image: "/assets/master-gateway-auth.svg",
     tags: ["NestJS", "TypeScript", "Vue 3"],
     categories: ["Sistemas", "Seguridad"],
+    mosaic: "small",
   },
   {
     title: "SpeechNotes",
@@ -58,6 +69,7 @@ const projects: Project[] = [
     image: "/assets/speechnotes.png",
     tags: ["Whisper", "AI", "Python"],
     categories: ["IA", "Datos"],
+    mosaic: "tall",
   },
   {
     title: "SymptoLeaf",
@@ -66,6 +78,7 @@ const projects: Project[] = [
     image: "/assets/symptoleaf.png",
     tags: ["PyTorch", "Computer Vision", "Edge Computing"],
     categories: ["IA", "Datos"],
+    mosaic: "square",
   },
   {
     title: "Inventrack PTES Report",
@@ -74,6 +87,7 @@ const projects: Project[] = [
     image: "/assets/inventrack-ptes-report.svg",
     tags: ["Kubernetes", "Docker", "OWASP ZAP"],
     categories: ["Seguridad", "Sistemas"],
+    mosaic: "wide",
   },
   {
     title: "Federated API Gateway",
@@ -82,6 +96,7 @@ const projects: Project[] = [
     image: "/assets/federated-api-gateway.svg",
     tags: ["Next.js", "Supabase", "JWT RS256"],
     categories: ["Sistemas", "Seguridad"],
+    mosaic: "tall",
   },
   {
     title: "DeepSeek R1 RAG",
@@ -90,6 +105,7 @@ const projects: Project[] = [
     image: "/assets/deepseek-r1-rag.svg",
     tags: ["DeepSeek R1", "LangChain", "ChromaDB"],
     categories: ["IA", "Datos"],
+    mosaic: "square",
   },
 ];
 
@@ -99,6 +115,7 @@ function closeMenu(setIsMenuOpen: (value: boolean) => void) {
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("Todos");
+  const [activeProjectTitle, setActiveProjectTitle] = useState(projects[0].title);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHeroFieldReady, setIsHeroFieldReady] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -124,6 +141,15 @@ export default function Home() {
   const visibleProjects = projects.filter(
     (project) => activeFilter === "Todos" || project.categories.includes(activeFilter),
   );
+  const activeProject = visibleProjects.find((project) => project.title === activeProjectTitle) ?? visibleProjects[0];
+
+  const selectFilter = (filter: string) => {
+    setActiveFilter(filter);
+    const firstProject = projects.find(
+      (project) => filter === "Todos" || project.categories.includes(filter),
+    );
+    if (firstProject) setActiveProjectTitle(firstProject.title);
+  };
 
   return (
     <>
@@ -234,7 +260,7 @@ export default function Home() {
                   key={filter}
                   type="button"
                   aria-pressed={activeFilter === filter}
-                  onClick={() => setActiveFilter(filter)}
+                  onClick={() => selectFilter(filter)}
                 >
                   {filter}
                 </button>
@@ -245,34 +271,63 @@ export default function Home() {
               {visibleProjects.length} {visibleProjects.length === 1 ? "proyecto visible" : "proyectos visibles"}
             </p>
 
-            <div className="projects-grid">
+            <div className="collage-stage">
+              <div className="projects-grid">
               {visibleProjects.map((project) => (
-                <article className={`project-card ${project.featured ? "project-card-featured" : ""}`} key={project.title}>
-                  <a className="project-media" href={project.href} target="_blank" rel="noopener noreferrer">
+                <article className={`project-tile project-tile-${project.mosaic}`} key={project.title}>
+                  <a
+                    className="project-media"
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title}: ${project.description}`}
+                    onMouseEnter={() => setActiveProjectTitle(project.title)}
+                    onFocus={() => setActiveProjectTitle(project.title)}
+                  >
                     <Image
                       src={project.image}
-                      alt={`Vista previa de ${project.title}`}
+                      alt=""
                       fill
-                      sizes={project.featured ? "(max-width: 760px) 100vw, 50vw" : "(max-width: 760px) 100vw, 33vw"}
+                      sizes="(max-width: 820px) 100vw, 60vw"
                     />
+                    <span className="project-fragments">
+                      {fragmentGrid.map(({ column, index, row }) => {
+                        const fragmentStyle = {
+                          "--fragment-delay": `${index * 16}ms`,
+                          "--fragment-image": `url("${project.image}")`,
+                          "--fragment-position": `${column * 33.3333}% ${row * 33.3333}%`,
+                          "--fragment-rx": `${(row - 1.5) * -9}deg`,
+                          "--fragment-ry": `${(column - 1.5) * 11}deg`,
+                          "--fragment-x": `${(column - 1.5) * 26}px`,
+                          "--fragment-y": `${(row - 1.5) * 22}px`,
+                          "--fragment-z": `${Math.abs(column - 1.5) * 14 + Math.abs(row - 1.5) * 12}px`,
+                        } as CSSProperties;
+                        return <span className="project-fragment" key={index} style={fragmentStyle} />;
+                      })}
+                    </span>
                     <span className="project-link" aria-hidden="true">↗</span>
                   </a>
+                </article>
+              ))}
+              </div>
 
-                  <div className="project-content">
-                    <ul className="project-tags" aria-label={`Tecnologías de ${project.title}`}>
-                      {project.tags.map((tag) => (
+              {activeProject && (
+                <aside className="project-detail" aria-live="polite" aria-label="Detalle del proyecto seleccionado">
+                  <div className="project-detail-inner" key={activeProject.title}>
+                    <p className="project-detail-label">Proyecto seleccionado</p>
+                    <h3>{activeProject.title}</h3>
+                    <p>{activeProject.description}</p>
+                    <ul className="project-detail-tags" aria-label={`Tecnologías de ${activeProject.title}`}>
+                      {activeProject.tags.map((tag) => (
                         <li key={tag}>{tag}</li>
                       ))}
                     </ul>
-                    <h3>
-                      <a href={project.href} target="_blank" rel="noopener noreferrer">
-                        {project.title}
-                      </a>
-                    </h3>
-                    <p>{project.description}</p>
+                    <a className="project-detail-link" href={activeProject.href} target="_blank" rel="noopener noreferrer">
+                      Explorar proyecto <span aria-hidden="true">↗</span>
+                    </a>
                   </div>
-                </article>
-              ))}
+                </aside>
+              )}
             </div>
           </div>
         </section>

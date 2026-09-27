@@ -16,10 +16,12 @@ test("portfolio uses the premium editorial interaction model", () => {
   assert.match(heroField, /gpu\.dispose/);
   assert.match(shader, /@fragment fn fs_main/);
   assert.match(shader, /pointer/);
-  assert.match(styles, /\.project-media::before/);
-  assert.match(styles, /feTurbulence/);
-  assert.match(styles, /\.project-media:hover::before/);
-  assert.match(styles, /\.project-media:focus-visible::before/);
+  assert.match(page, /project-fragments/);
+  assert.match(page, /project-detail/);
+  assert.match(styles, /\.project-fragments/);
+  assert.match(styles, /fragment-rebuild/);
+  assert.match(styles, /\.project-media:hover \.project-fragment/);
+  assert.match(styles, /\.project-media:focus-visible \.project-fragment/);
   assert.match(page, /aria-expanded=/);
   assert.match(page, /aria-pressed=/);
   assert.match(page, /mailto:gamurigm@gmail\.com/);
