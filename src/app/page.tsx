@@ -113,6 +113,39 @@ function closeMenu(setIsMenuOpen: (value: boolean) => void) {
   setIsMenuOpen(false);
 }
 
+function ArrowIcon() {
+  return (
+    <svg className="micro-icon arrow-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 10h11M10 4l6 6-6 6" />
+    </svg>
+  );
+}
+
+function GithubIcon() {
+  return (
+    <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 19c-4.2 1.3-4.2-2.2-5.9-2.7M14.8 21v-3.2a2.8 2.8 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.2 6a4.3 4.3 0 0 0-.1-3.2S17.1 2.5 14 4a12 12 0 0 0-6 0C4.9 2.5 3.9 2.8 3.9 2.8A4.3 4.3 0 0 0 3.8 6a4.7 4.7 0 0 0-1.3 3.6c0 4.7 2.8 5.7 5.5 6a2.8 2.8 0 0 0-.8 2.2V21" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 9v10M5 5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg className="micro-icon mail-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <rect x="2.5" y="4" width="15" height="12" rx="2" />
+      <path d="m3.5 6 6.5 5 6.5-5" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("Todos");
   const [activeProjectTitle, setActiveProjectTitle] = useState(projects[0].title);
@@ -293,19 +326,19 @@ export default function Home() {
 
               <div className="hero-actions">
                 <a className="button button-primary" href="#projects">
-                  Ver proyectos <span aria-hidden="true">↘</span>
+                  Ver proyectos <ArrowIcon />
                 </a>
                 <a className="button button-quiet" href="mailto:gamurigm@gmail.com">
-                  Contactar
+                  <MailIcon /> Contactar
                 </a>
               </div>
 
               <div className="social-links" aria-label="Perfiles profesionales">
                 <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer">
-                  GitHub <span aria-hidden="true">↗</span>
+                  <GithubIcon /> GitHub <ArrowIcon />
                 </a>
                 <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer">
-                  LinkedIn <span aria-hidden="true">↗</span>
+                  <LinkedInIcon /> LinkedIn <ArrowIcon />
                 </a>
               </div>
             </div>
@@ -319,6 +352,19 @@ export default function Home() {
                 sizes="(max-width: 760px) 100vw, 52vw"
               />
               <canvas className="hero-field" ref={canvasRef} aria-hidden="true" />
+              <svg className="hero-orbit" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true">
+                <path className="orbit-track orbit-track-primary" d="M70 605C124 288 345 115 574 154s407 186 368 370-288 274-539 222S24 803 70 605Z" />
+                <path className="orbit-track orbit-track-secondary" d="M95 245C260 78 542 78 769 209s210 331 85 481-383 114-568-15S-70 412 95 245Z" />
+                <g className="orbit-runner">
+                  <circle r="8" fill="currentColor" />
+                  <circle r="15" fill="currentColor" opacity=".2" />
+                  <animateMotion dur="18s" repeatCount="indefinite" path="M70 605C124 288 345 115 574 154s407 186 368 370-288 274-539 222S24 803 70 605Z" />
+                </g>
+                <g className="orbit-runner orbit-runner-violet">
+                  <circle r="5" fill="currentColor" />
+                  <animateMotion dur="24s" begin="-8s" repeatCount="indefinite" path="M95 245C260 78 542 78 769 209s210 331 85 481-383 114-568-15S-70 412 95 245Z" />
+                </g>
+              </svg>
               <figcaption>Arquitecturas que conectan datos, producto y negocio.</figcaption>
             </figure>
           </div>
@@ -415,7 +461,7 @@ export default function Home() {
                       ))}
                     </ul>
                     <a className="project-detail-link" href={activeProject.href} target="_blank" rel="noopener noreferrer">
-                      Explorar proyecto <span aria-hidden="true">↗</span>
+                      Explorar proyecto <ArrowIcon />
                     </a>
                   </div>
                 </aside>
@@ -450,7 +496,7 @@ export default function Home() {
           <div className="footer-contact">
             <p>Hablemos sobre una idea, un producto o un sistema que merezca ser construido.</p>
             <a className="footer-email" href="mailto:gamurigm@gmail.com">
-              gamurigm@gmail.com <span aria-hidden="true">↗</span>
+              gamurigm@gmail.com <ArrowIcon />
             </a>
             <div className="footer-links" aria-label="Otros medios de contacto">
               <a className="footer-link" href="https://wa.me/593984919443" target="_blank" rel="noopener noreferrer">
