@@ -198,6 +198,12 @@ button {
   width: 16px;
 }
 
+.menu-toggle .menu-lottie {
+  height: 34px;
+  pointer-events: none;
+  width: 34px;
+}
+
 .menu-toggle[aria-expanded="true"] span:first-child {
   transform: translateY(3.5px) rotate(45deg);
 }
@@ -321,6 +327,25 @@ button {
   stroke-width: 1.6;
   transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
   width: 18px;
+}
+
+.use-animation-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 20px;
+  width: 20px;
+}
+
+.use-animation-icon svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.lottieflow-icon {
+  display: inline-flex;
+  height: 22px;
+  width: 22px;
 }
 
 .button:hover .micro-icon,
@@ -460,6 +485,11 @@ button {
 .orbit-track-primary {
   opacity: 0.55;
   stroke-width: 1.1;
+}
+
+.hero-flow-pattern {
+  opacity: 0.34;
+  pointer-events: none;
 }
 
 .orbit-track-secondary {
@@ -956,6 +986,10 @@ button {
 
   .orbit-track-secondary {
     animation: none !important;
+  }
+
+  .hero-field {
+    display: none;
   }
 }
 

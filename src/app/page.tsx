@@ -1,8 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { animate, svg } from "animejs";
+import { Lottie, type LottieHandle } from "lottie-react";
+import githubAnimation from "react-useanimations/lib/github";
+import linkedinAnimation from "react-useanimations/lib/linkedin";
+import mailAnimation from "react-useanimations/lib/mail";
+import lottieflowArrow from "../../public/assets/lottieflow-arrow.json";
+import lottieflowMenu from "../../public/assets/lottieflow-menu.json";
 import { startHeroField } from "./hero-field";
+
+const UseAnimations = dynamic(() => import("react-useanimations"), { ssr: false });
 
 type Project = {
   title: string;
@@ -121,29 +131,42 @@ function ArrowIcon() {
   );
 }
 
-function GithubIcon() {
+function LottieflowArrow({ reducedMotion }: { reducedMotion: boolean }) {
+  const animationRef = useRef<LottieHandle>(null);
+  const play = () => {
+    if (reducedMotion) return;
+    animationRef.current?.stop();
+    animationRef.current?.play();
+  };
+
+  if (reducedMotion) return <ArrowIcon />;
+
   return (
-    <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M9 19c-4.2 1.3-4.2-2.2-5.9-2.7M14.8 21v-3.2a2.8 2.8 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.2 6a4.3 4.3 0 0 0-.1-3.2S17.1 2.5 14 4a12 12 0 0 0-6 0C4.9 2.5 3.9 2.8 3.9 2.8A4.3 4.3 0 0 0 3.8 6a4.7 4.7 0 0 0-1.3 3.6c0 4.7 2.8 5.7 5.5 6a2.8 2.8 0 0 0-.8 2.2V21" />
-    </svg>
+    <span className="micro-icon lottieflow-icon" aria-hidden="true" onMouseEnter={play}>
+      <Lottie src={lottieflowArrow} autoplay={false} loop={false} lottieRef={animationRef} />
+    </span>
   );
 }
 
-function LinkedInIcon() {
-  return (
-    <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 9v10M5 5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9" />
-    </svg>
-  );
+function GithubIcon({ reducedMotion }: { reducedMotion: boolean }) {
+  if (!reducedMotion) {
+    return <UseAnimations animation={githubAnimation} size={20} strokeColor="currentColor" autoplay={false} aria-hidden="true" className="use-animation-icon" />;
+  }
+  return <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 19c-4.2 1.3-4.2-2.2-5.9-2.7M14.8 21v-3.2a2.8 2.8 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.2 6a4.3 4.3 0 0 0-.1-3.2S17.1 2.5 14 4a12 12 0 0 0-6 0C4.9 2.5 3.9 2.8 3.9 2.8A4.3 4.3 0 0 0 3.8 6a4.7 4.7 0 0 0-1.3 3.6c0 4.7 2.8 5.7 5.5 6a2.8 2.8 0 0 0-.8 2.2V21" /></svg>;
 }
 
-function MailIcon() {
-  return (
-    <svg className="micro-icon mail-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <rect x="2.5" y="4" width="15" height="12" rx="2" />
-      <path d="m3.5 6 6.5 5 6.5-5" />
-    </svg>
-  );
+function LinkedInIcon({ reducedMotion }: { reducedMotion: boolean }) {
+  if (!reducedMotion) {
+    return <UseAnimations animation={linkedinAnimation} size={20} strokeColor="currentColor" autoplay={false} aria-hidden="true" className="use-animation-icon" />;
+  }
+  return <svg className="micro-icon brand-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9" /></svg>;
+}
+
+function MailIcon({ reducedMotion }: { reducedMotion: boolean }) {
+  if (!reducedMotion) {
+    return <UseAnimations animation={mailAnimation} size={20} strokeColor="currentColor" autoplay={false} aria-hidden="true" className="use-animation-icon" />;
+  }
+  return <svg className="micro-icon mail-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="2" /><path d="m3.5 6 6.5 5 6.5-5" /></svg>;
 }
 
 export default function Home() {
@@ -151,10 +174,25 @@ export default function Home() {
   const [activeProjectTitle, setActiveProjectTitle] = useState(projects[0].title);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHeroFieldReady, setIsHeroFieldReady] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isRevealReady, setIsRevealReady] = useState(false);
   const [revealedSections, setRevealedSections] = useState<Record<string, boolean>>({});
   const [scrollProgress, setScrollProgress] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const motionPathRef = useRef<SVGPathElement>(null);
+  const secondaryMotionPathRef = useRef<SVGPathElement>(null);
+  const motionRunnerRef = useRef<SVGGElement>(null);
+  const secondaryMotionRunnerRef = useRef<SVGGElement>(null);
+  const menuMotionRef = useRef<LottieHandle>(null);
+  const previousMenuOpenRef = useRef(isMenuOpen);
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(motionPreference.matches);
+    updateMotionPreference();
+    motionPreference.addEventListener("change", updateMotionPreference);
+    return () => motionPreference.removeEventListener("change", updateMotionPreference);
+  }, []);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -168,11 +206,75 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const path = motionPathRef.current;
+    const secondaryPath = secondaryMotionPathRef.current;
+    const runner = motionRunnerRef.current;
+    const secondaryRunner = secondaryMotionRunnerRef.current;
+    if (!path || !secondaryPath || !runner || !secondaryRunner) return;
+
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motion = animate(runner, {
+      ...svg.createMotionPath(path),
+      autoplay: false,
+      duration: 19000,
+      ease: "linear",
+      loop: true,
+    });
+    const secondaryMotion = animate(secondaryRunner, {
+      ...svg.createMotionPath(secondaryPath),
+      autoplay: false,
+      duration: 26000,
+      ease: "linear",
+      loop: true,
+    });
+    const [drawablePath] = svg.createDrawable(path);
+    const pathTrace = animate(drawablePath, {
+      autoplay: false,
+      alternate: true,
+      duration: 4200,
+      draw: ["0 0", "0 0.28", "0.72 1", "1 1"],
+      ease: "inOutSine",
+      loop: true,
+    });
+    const syncMotion = () => {
+      if (motionPreference.matches) {
+        motion.pause();
+        secondaryMotion.pause();
+        pathTrace.pause();
+      } else {
+        motion.resume();
+        secondaryMotion.resume();
+        pathTrace.resume();
+      }
+    };
+
+    syncMotion();
+    motionPreference.addEventListener("change", syncMotion);
+    return () => {
+      motionPreference.removeEventListener("change", syncMotion);
+      motion.revert();
+      secondaryMotion.revert();
+      pathTrace.revert();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (previousMenuOpenRef.current === isMenuOpen) return;
+    previousMenuOpenRef.current = isMenuOpen;
+    if (prefersReducedMotion) return;
+    const menuAnimation = menuMotionRef.current;
+    if (!menuAnimation) return;
+    menuAnimation.setDirection(isMenuOpen ? "forward" : "reverse");
+    menuAnimation.play();
+  }, [isMenuOpen, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     return startHeroField(canvas, () => setIsHeroFieldReady(true));
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     let frameId = 0;
@@ -281,8 +383,20 @@ export default function Home() {
             aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            <span />
-            <span />
+            {prefersReducedMotion ? (
+              <>
+                <span />
+                <span />
+              </>
+            ) : (
+              <Lottie
+                className="menu-lottie"
+                src={lottieflowMenu}
+                autoplay={false}
+                loop={false}
+                lottieRef={menuMotionRef}
+              />
+            )}
           </button>
 
           <nav
@@ -326,19 +440,19 @@ export default function Home() {
 
               <div className="hero-actions">
                 <a className="button button-primary" href="#projects">
-                  Ver proyectos <ArrowIcon />
+                  Ver proyectos <LottieflowArrow reducedMotion={prefersReducedMotion} />
                 </a>
                 <a className="button button-quiet" href="mailto:gamurigm@gmail.com">
-                  <MailIcon /> Contactar
+                  <MailIcon reducedMotion={prefersReducedMotion} /> Contactar
                 </a>
               </div>
 
               <div className="social-links" aria-label="Perfiles profesionales">
                 <a href="https://github.com/gamurigm" target="_blank" rel="noopener noreferrer">
-                  <GithubIcon /> GitHub <ArrowIcon />
+                  <GithubIcon reducedMotion={prefersReducedMotion} /> GitHub <ArrowIcon />
                 </a>
                 <a href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer">
-                  <LinkedInIcon /> LinkedIn <ArrowIcon />
+                  <LinkedInIcon reducedMotion={prefersReducedMotion} /> LinkedIn <ArrowIcon />
                 </a>
               </div>
             </div>
@@ -353,16 +467,29 @@ export default function Home() {
               />
               <canvas className="hero-field" ref={canvasRef} aria-hidden="true" />
               <svg className="hero-orbit" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true">
-                <path className="orbit-track orbit-track-primary" d="M70 605C124 288 345 115 574 154s407 186 368 370-288 274-539 222S24 803 70 605Z" />
-                <path className="orbit-track orbit-track-secondary" d="M95 245C260 78 542 78 769 209s210 331 85 481-383 114-568-15S-70 412 95 245Z" />
-                <g className="orbit-runner">
+                <defs>
+                  <pattern id="flow-line-pattern" width="58" height="58" patternUnits="userSpaceOnUse">
+                    <path d="M-10 16C4 4 20 4 34 16s30 12 44 0M-10 44C4 32 20 32 34 44s30 12 44 0" fill="none" stroke="currentColor" strokeOpacity=".42" strokeWidth="1" />
+                    <circle cx="34" cy="16" r="1.5" fill="currentColor" fillOpacity=".5" />
+                  </pattern>
+                  <radialGradient id="flow-line-fade">
+                    <stop offset="0" stopColor="white" stopOpacity=".58" />
+                    <stop offset=".72" stopColor="white" stopOpacity=".3" />
+                    <stop offset="1" stopColor="black" stopOpacity="0" />
+                  </radialGradient>
+                  <mask id="flow-line-mask">
+                    <rect width="100%" height="100%" fill="url(#flow-line-fade)" />
+                  </mask>
+                </defs>
+                <rect className="hero-flow-pattern" width="1000" height="850" fill="url(#flow-line-pattern)" mask="url(#flow-line-mask)" />
+                <path ref={motionPathRef} className="orbit-track orbit-track-primary" d="M70 605C124 288 345 115 574 154s407 186 368 370-288 274-539 222S24 803 70 605Z" />
+                <path ref={secondaryMotionPathRef} className="orbit-track orbit-track-secondary" d="M95 245C260 78 542 78 769 209s210 331 85 481-383 114-568-15S-70 412 95 245Z" />
+                <g ref={motionRunnerRef} className="orbit-runner">
                   <circle r="8" fill="currentColor" />
                   <circle r="15" fill="currentColor" opacity=".2" />
-                  <animateMotion dur="18s" repeatCount="indefinite" path="M70 605C124 288 345 115 574 154s407 186 368 370-288 274-539 222S24 803 70 605Z" />
                 </g>
-                <g className="orbit-runner orbit-runner-violet">
+                <g ref={secondaryMotionRunnerRef} className="orbit-runner orbit-runner-violet">
                   <circle r="5" fill="currentColor" />
-                  <animateMotion dur="24s" begin="-8s" repeatCount="indefinite" path="M95 245C260 78 542 78 769 209s210 331 85 481-383 114-568-15S-70 412 95 245Z" />
                 </g>
               </svg>
               <figcaption>Arquitecturas que conectan datos, producto y negocio.</figcaption>
