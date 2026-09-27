@@ -176,7 +176,7 @@ export default function Home() {
                 <a className="button button-primary" href="#projects">
                   Ver proyectos <span aria-hidden="true">↘</span>
                 </a>
-                <a className="button button-quiet" href="mailto:gabriel.murillo@unl.edu.ec">
+                <a className="button button-quiet" href="mailto:gamurigm@gmail.com">
                   Contactar
                 </a>
               </div>
@@ -287,9 +287,17 @@ export default function Home() {
           </div>
           <div className="footer-contact">
             <p>Hablemos sobre una idea, un producto o un sistema que merezca ser construido.</p>
-            <a className="footer-email" href="mailto:gabriel.murillo@unl.edu.ec">
-              gabriel.murillo@unl.edu.ec <span aria-hidden="true">↗</span>
+            <a className="footer-email" href="mailto:gamurigm@gmail.com">
+              gamurigm@gmail.com <span aria-hidden="true">↗</span>
             </a>
+            <div className="footer-links" aria-label="Otros medios de contacto">
+              <a className="footer-link" href="https://wa.me/593984919443" target="_blank" rel="noopener noreferrer">
+                WhatsApp / 098 491 9443 <span aria-hidden="true">↗</span>
+              </a>
+              <a className="footer-link" href="https://www.linkedin.com/in/gmurillo-medina/" target="_blank" rel="noopener noreferrer">
+                LinkedIn <span aria-hidden="true">↗</span>
+              </a>
+            </div>
             <p className="footer-meta">© {new Date().getFullYear()} Gabriel Murillo</p>
           </div>
         </div>

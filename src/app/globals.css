@@ -542,6 +542,30 @@ button {
   color: var(--accent);
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.footer-link {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+
+.footer-link span {
+  color: var(--accent);
+  margin-left: 5px;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--ink);
+}
+
 .footer-meta {
   color: var(--quiet) !important;
   font-size: 0.7rem !important;
